@@ -1,4 +1,4 @@
-FROM xuweijie/centos
+FROM registry.cn-hangzhou.aliyuncs.com/xwjs/centos7
 
 MAINTAINER feng
 
