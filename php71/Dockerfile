@@ -34,7 +34,9 @@ RUN cd /tmp &&\
     /usr/local/php/bin/phpize &&\
     ./configure --with-php-config=/usr/local/php/bin/php-config &&\
     make &&\
-    make install
+    make install &&\
+    echo '[Redis]' >> /usr/local/php/lib/php.ini &&\
+    echo 'extension=redis.so;' >> /usr/local/php/lib/php.ini
 
 #开放端口
 EXPOSE 9000
