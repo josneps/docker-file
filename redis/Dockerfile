@@ -25,9 +25,9 @@ RUN cd /tmp &&\
     gpg --verify rvm-installer.asc &&\
     bash rvm-installer stable &&\
     /usr/local/rvm/bin/rvm install ruby 2.4.1 &&\
-    gem sources --remove https://rubygems.org/ &&\
-    gem sources -a https://ruby.taobao.org/ &&\
-    gem install redis-dump -V
+    /usr/local/rvm/rubies/ruby-2.4.1/bin/gem sources --remove https://rubygems.org/ &&\
+    /usr/local/rvm/rubies/ruby-2.4.1/bin/gem sources -a https://ruby.taobao.org/ &&\
+    /usr/local/rvm/rubies/ruby-2.4.1/bin/gem install redis-dump -V
 
 # 开放端口
 EXPOSE 6379
