@@ -5,6 +5,7 @@ MAINTAINER xwj
 # Redis
 RUN cd /tmp &&\
     wget http://download.redis.io/releases/redis-4.0.9.tar.gz &&\
+    tar -zvxf redis-4.0.9 &&\
     cd /tmp/redis-4.0.9 &&\
     make &&\
     make install &&\
