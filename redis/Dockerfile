@@ -24,8 +24,7 @@ RUN cd /tmp &&\
     curl -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer.asc &&\
     gpg --verify rvm-installer.asc &&\
     bash rvm-installer stable &&\
-    source /etc/profile.d/rvm.sh &&\
-    rvm install ruby 2.4.1 &&\
+    /usr/local/rvm/bin/rvm install ruby 2.4.1 &&\
     gem sources --remove https://rubygems.org/ &&\
     gem sources -a https://ruby.taobao.org/ &&\
     gem install redis-dump -V
