@@ -34,4 +34,4 @@ RUN cd /tmp &&\
 EXPOSE 6379
 
 # 执行命令
-ENTRYPOINT ["/usr/local/redis/bin/redis-server" "/usr/local/redis/etc/redis.conf"] 
+#ENTRYPOINT ["/usr/local/redis/bin/redis-server" "/usr/local/redis/etc/redis.conf"] 
