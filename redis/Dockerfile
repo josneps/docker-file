@@ -25,6 +25,7 @@ RUN cd /tmp &&\
     gpg --verify rvm-installer.asc &&\
     bash rvm-installer stable &&\
     /usr/local/rvm/bin/rvm install ruby 2.4.1 &&\
+    ln -s /usr/local/rvm/rubies/ruby-2.4.1/bin/ruby /usr/bin/ruby &&\
     /usr/local/rvm/rubies/ruby-2.4.1/bin/gem sources --remove https://rubygems.org/ &&\
     /usr/local/rvm/rubies/ruby-2.4.1/bin/gem sources -a https://ruby.taobao.org/ &&\
     /usr/local/rvm/rubies/ruby-2.4.1/bin/gem install redis-dump -V
