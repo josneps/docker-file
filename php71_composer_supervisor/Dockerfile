@@ -4,7 +4,7 @@ MAINTAINER xwj
 
 # 安装composer
 RUN mkdir -p /usr/local/composer &&\
-    curl -sS https://getcomposer.org/installer | php -- --install-dir="/usr/local/composer" &&\
+    curl -sS https://getcomposer.org/installer | /usr/local/php/bin/php -- --install-dir="/usr/local/composer" &&\
     ln -s /usr/local/composer/composer.phar /usr/local/bin/composer
 
 # 安装supervisor
