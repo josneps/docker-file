@@ -8,7 +8,7 @@ RUN mkdir -p /usr/local/composer &&\
     ln -s /usr/local/composer/composer.phar /usr/local/bin/composer
 
 # 安装supervisor
-RUN yum install python-setuptools-devel &&\
+RUN yum install python-setuptools-devel -y &&\
 	easy_install supervisor &&\
 	echo_supervisord_conf > /etc/supervisord.conf &&\
 	mkdir -p  /etc/supervisord.ini &&\
