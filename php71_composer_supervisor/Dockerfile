@@ -23,6 +23,6 @@ RUN yum install python-setuptools-devel -y &&\
 EXPOSE 9000
 
 #执行命令
-ENTRYPOINT ["supervisord", "-c", "/etc/supervisord.conf"]
+ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
 
 
