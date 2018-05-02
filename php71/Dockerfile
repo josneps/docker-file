@@ -27,17 +27,12 @@ RUN cp /tmp/php-7.1.16/php.ini-production /usr/local/php/lib/php.ini && \
     mkdir -p /var/www/html &&\
     chmod -R 775 /var/www/html
 
-# 安装redis扩展
-RUN cd /tmp &&\
-    wget http://101.96.10.64/pecl.php.net/get/redis-3.1.3.tgz &&\
-    tar vxzf redis-3.1.3.tgz &&\
-    cd redis-3.1.3 &&\
-    /usr/local/php/bin/phpize &&\
-    ./configure --with-php-config=/usr/local/php/bin/php-config &&\
-    make &&\
-    make install &&\
-    echo '[Redis]' >> /usr/local/php/lib/php.ini &&\
-    echo 'extension=redis.so;' >> /usr/local/php/lib/php.ini
+# 安装redis + mongodb扩展
+RUN /usr/local/php/bin/pecl install redis &&\
+    echo 'extension=redis.so;' >> /usr/local/php/lib/php.ini &&\
+    /usr/local/php/bin/pecl install mongodb &&\
+    echo 'extension=mongodb.so;' >> /usr/local/php/lib/php.ini
+
 
 
 # 开放端口
