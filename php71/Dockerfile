@@ -18,9 +18,7 @@ RUN cd /tmp &&\
     --with-mysqli --with-pdo-mysql --with-iconv-dir --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir --enable-simplexml --enable-xml --disable-rpath --enable-bcmath --enable-soap --enable-zip --with-curl --enable-fpm --with-fpm-user=nobody --with-fpm-group=nobody --enable-mbstring --enable-sockets --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-opcache && \
     make && \
     make install &&\
-    PATH=$PATH:/usr/local/php/bin &&\
-    export PATH &&\
-    source /etc/profile
+    cp /usr/local/php/bin/php /usr/bin
 
 # 复制文件
 RUN cp /tmp/php-7.1.16/php.ini-production /usr/local/php/lib/php.ini && \
