@@ -13,15 +13,11 @@ RUN cd /tmp &&\
     wget http://cn2.php.net/distributions/php-7.1.16.tar.gz && \
     tar xzf php-7.1.16.tar.gz &&\
     cd /tmp/php-7.1.16 &&\
-    ./configure \
-    --prefix=/usr/local/php \
-    --with-mysqli --with-pdo-mysql --with-iconv-dir --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir --enable-simplexml --enable-xml --disable-rpath --enable-bcmath --enable-soap --enable-zip --with-curl --enable-fpm --with-fpm-user=nobody --with-fpm-group=nobody --enable-mbstring --enable-sockets --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-opcache && \
+    ./configure --prefix=/usr/local/php --with-mysqli --with-pdo-mysql --with-iconv-dir --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir --enable-simplexml --enable-xml --disable-rpath --enable-bcmath --enable-soap --enable-zip --with-curl --enable-fpm --with-fpm-user=nobody --with-fpm-group=nobody --enable-mbstring --enable-sockets --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-opcache && \
     make && \
     make install &&\
-    cp /usr/local/php/bin/php /usr/bin
-
-# 复制文件
-RUN cp /tmp/php-7.1.16/php.ini-production /usr/local/php/lib/php.ini && \
+    cp /usr/local/php/bin/php /usr/bin &&\
+    cp /tmp/php-7.1.16/php.ini-production /usr/local/php/lib/php.ini && \
     cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf && \
     cp /usr/local/php/etc/php-fpm.d/www.conf.default /usr/local/php/etc/php-fpm.d/www.conf &&\
     mkdir -p /var/www/html &&\
