@@ -6,8 +6,9 @@ ENV MYSQL_ALLOW_EMPTY_PASSWORD yes
 #将所需文件放到容器中
 COPY setup.sh /mysql/setup.sh
 COPY privileges.sql /mysql/privileges.sql
+COPY start.sh /mysql/start.sh
 
 RUN sh /mysql/setup.sh
  
 #设置容器启动时执行的命令
-CMD ["tail", "-f", "/dev/null"]
+CMD ["sh", "/mysql/start.sh"]
