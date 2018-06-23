@@ -1,6 +1,6 @@
 FROM registry.cn-hangzhou.aliyuncs.com/xwjs/centos7
 
-MAINTAINER feng
+MAINTAINER xwj
 
 # Yum
 RUN yum -y update &&\
@@ -8,26 +8,28 @@ RUN yum -y update &&\
     yum clean all
 
 # Nginx
-RUN cd /tmp &&\
-    wget http://nginx.org/download/nginx-1.13.10.tar.gz &&\
-    tar xzf nginx-1.13.10.tar.gz &&\
-    cd /tmp/nginx-1.13.10 &&\
+ENV NGINX_VERSION 1.15.0
+WORKDIR /tmp
+RUN wget http://nginx.org/download/nginx-$NGINX_VERSION.tar.gz &&\
+    tar xzf nginx-$NGINX_VERSION.tar.gz &&\
+    cd /tmp/nginx-$NGINX_VERSION &&\
     ./configure \
         --prefix=/usr/local/nginx \
-        --with-http_ssl_module --with-http_sub_module --with-http_dav_module --with-http_flv_module \
-        --with-http_gzip_static_module --with-http_stub_status_module --with-debug && \
-        make && \
-        make install &&\
-        PATH=$PATH:/usr/local/nginx/sbin &&\
-        export PATH &&\
-        source /etc/profile
+        --with-http_ssl_module \
+        --with-http_sub_module \
+        --with-http_dav_module \
+        --with-http_flv_module \
+        --with-http_gzip_static_module \
+        --with-http_stub_status_module \
+        --with-debug && \
+    make && \
+    make install
 
-# 创建代码目录
-RUN mkdir -p /var/www/html &&\
-    chmod -R 775 /var/www/html
+# 设置环境变量
+ENV PATH /usr/local/nginx/sbin:$PATH
 
 # 开放端口
 EXPOSE 80 443
 
 # 执行命令
-ENTRYPOINT ["/usr/local/nginx/sbin/nginx", "-g", "daemon off;"] 
+ENTRYPOINT ["nginx", "-g", "daemon off;"] 

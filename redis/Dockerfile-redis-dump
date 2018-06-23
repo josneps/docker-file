@@ -1,0 +1,38 @@
+FROM registry.cn-hangzhou.aliyuncs.com/xwjs/centos7
+
+MAINTAINER xwj
+
+# Redis
+
+ENV REDIS_VERSION 3.2.1
+
+RUN cd /tmp &&\
+    wget http://download.redis.io/releases/redis-$REDIS_VERSION.tar.gz &&\
+    tar -zvxf redis-$REDIS_VERSION.tar.gz &&\
+    cd /tmp/redis-$REDIS_VERSION &&\
+    make PREFIX=/usr/local/redis install &&\
+    mkdir /usr/local/redis/data
+COPY ["./redis.conf", "/usr/local/redis/"]
+
+# Ruby && redis-dump
+
+ENV RUBY_VERSION 2.4.1
+
+RUN mkdir -p /tmp/rvm &&\
+    cd /tmp/rvm &&\
+    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 &&\
+    curl -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer &&\
+    curl -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer.asc &&\
+    gpg --verify rvm-installer.asc &&\
+    bash rvm-installer stable &&\
+    /usr/local/rvm/bin/rvm install ruby $RUBY_VERSION &&\
+    ln -s /usr/local/rvm/rubies/ruby-$RUBY_VERSION/bin/ruby /usr/bin/ruby &&\
+    /usr/local/rvm/rubies/ruby-$RUBY_VERSION/bin/gem sources --remove https://rubygems.org/ &&\
+    /usr/local/rvm/rubies/ruby-$RUBY_VERSION/bin/gem sources -a https://ruby.taobao.org/ &&\
+    /usr/local/rvm/rubies/ruby-$RUBY_VERSION/bin/gem install redis-dump -V
+
+# 开放端口
+EXPOSE 6379
+
+# 执行命令
+ENTRYPOINT ["/usr/local/redis/bin/redis-server", "/usr/local/redis/redis.conf"] 
