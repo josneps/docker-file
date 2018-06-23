@@ -57,9 +57,10 @@ ENV PATH /usr/local/php/sbin:$PATH
 # 安装扩展redis、mongodb、swoole
 RUN pear config-set php_ini /usr/local/php/lib/php.ini &&\
     pecl config-set php_ini /usr/local/php/lib/php.ini &&\
+    pecl install swoole &&\
     pecl install redis &&\
-    pecl install mongodb &&\
-    pecl install swoole
+    pecl install mongodb
+    
 
 # 安装composer
 RUN mkdir -p /usr/local/composer &&\
